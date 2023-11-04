@@ -1,0 +1,105 @@
+CREATE DATABASE PI;
+
+
+-- Tabela Usuários X
+CREATE TABLE IF NOT EXISTS Usuarios (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    Senha VARCHAR(255) NOT NULL,
+    ConfiguracoesAcessibilidade TEXT,
+    UNIQUE (Email)
+);
+
+-- Tabela Tarefas X
+CREATE TABLE IF NOT EXISTS Tarefas (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    NomeTarefa VARCHAR(255) NOT NULL,
+    Descricao TEXT,
+    DataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    DataConclusao DATETIME,
+    Status ENUM('pendente', 'concluida', 'atrasada') DEFAULT 'pendente',
+    Prioridade ENUM('baixa', 'media', 'alta') DEFAULT 'media',
+    IDUsuario INT,
+    FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID)
+);
+
+-- Tabela Interações X
+CREATE TABLE IF NOT EXISTS Interacoes (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    IDUsuario INT,
+    DataHoraInteracao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    TipoInteracao ENUM('comentario', 'curtida', 'compartilhamento', 'outro'),
+    ConteudoInteracao TEXT,
+    IDTarefa INT,
+    FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID),
+    FOREIGN KEY (IDTarefa) REFERENCES Tarefas(ID)
+);
+
+-- Tabela Calendario X
+-- Um tipo de aba que pode ser aberta no grupo, armazena informações, tópicas e tópicos em datas específicas
+CREATE TABLE IF NOT EXISTS Calendario (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    TituloEvento VARCHAR(255) NOT NULL,
+    DataHoraInicio DATETIME,
+    DataHoraFim DATETIME,
+    Marcador VARCHAR(255),
+    Descricao TEXT,
+    IDUsuario INT,
+    FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID)
+);
+
+-- Tabela Grupos X
+-- a Tabela referente a cada grupo, contém os membros e todas as abas, contém também o id dos membros que possuem permissões.
+CREATE TABLE IF NOT EXISTS Grupos (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    NomeGrupo VARCHAR(255) NOT NULL,
+    Descricao TEXT,
+    Abas
+    IDUsuarioCriador INT,
+    IDPermissaoConvidar INT,
+    IDPermissaoInteragir INT,
+    IDPermissaoEditarGrupo INT,
+    FOREIGN KEY (IDUsuarioCriador) REFERENCES Usuarios(ID)
+    FOREIGN KEY (IDPermissaoConvidar) REFERENCES MembrosGrupo(ID)
+    FOREIGN KEY (IDPermissaoInteragir) REFERENCES MembrosGrupo(ID)
+    FOREIGN KEY (IDPermissaoEditarGrupo) REFERENCES MembrosGrupo(ID)
+);
+
+-- Tabela MembrosGrupo X
+-- Os membros pertencentes a um grupo específico, com suas respectivas permissões dentro do grupo.
+CREATE TABLE IF NOT EXISTS MembrosGrupo (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    IDGrupo INT NOT NULL,
+    IDUsuario INT NOT NULL,
+    PermissaoParaConvidar BOOLEAN NOT NULL,
+    PermissaoParaInteragir BOOLEAN NOT null,
+    PermissaoParaEditarGrupo BIT NOT NULL,
+    FOREIGN KEY (IDGrupo) REFERENCES Grupos(ID),
+    FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID)
+    -- Interessante Ter algo que determine se o usuário te permissões para alterações no grupo ou nas tarefas, calendários e etc..
+);
+
+-- Tabela Mensagens X
+-- Troca de mensagens entre duas pessoas
+CREATE TABLE IF NOT EXISTS Mensagens (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Conteudo TEXT,
+    DataHoraEnvio DATETIME DEFAULT CURRENT_TIMESTAMP,
+    IDUsuarioRemetente INT,
+    IDUsuarioDestinatario INT,
+    FOREIGN KEY (IDUsuarioRemetente) REFERENCES Usuarios(ID),
+    FOREIGN KEY (IDUsuarioDestinatario) REFERENCES Usuarios(ID)
+);
+
+-- Tabela MateriaisEstudo X
+-- Uma aba de posts, tanto de mensagens quanto links ou arquivos.
+CREATE TABLE IF NOT EXISTS Posts (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    NomeDoPost VARCHAR(255) NOT NULL,
+    Descricao TEXT,
+    URL VARCHAR(255),
+    IDUsuarioRemetente INT,
+    FOREIGN KEY (IDUsuarioRemetente) REFERENCES Usuarios(ID)
+);
+
