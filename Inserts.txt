@@ -1,0 +1,33 @@
+-- Exemplos de insert do banco de dados
+[21:20, 03/11/2023] gustavo silveira: -- Usuários
+INSERT INTO Usuarios (Nome, Email, Senha, ConfiguracoesAcessibilidade)
+VALUES ('Maria', 'maria@example.com', 'senha123', 'Configurações de acessibilidade 1'),
+       ('Carlos', 'carlos@example.com', 'senha456', 'Configurações de acessibilidade 2'),
+       ('Ana', 'ana@example.com', 'senha789', 'Configurações de acessibilidade 3'),
+       ('Pedro', 'pedro@example.com', 'senha321', 'Configurações de acessibilidade 4'),
+       ('Mariana', 'mariana@example.com', 'senha654', 'Configurações de acessibilidade 5'),
+       ('Lucas', 'lucas@example.com', 'senha987', 'Configurações de acessibilidade 6'),
+       ('Julia', 'julia@example.com', 'senha123', 'Configurações de acessibilidade 7'),
+       ('Felipe', 'felipe@example.com', 'senha456', 'Configurações …
+[21:20, 03/11/2023] gustavo silveira: -- Tarefas
+INSERT INTO Tarefas (NomeTarefa, Descricao, IDUsuario, Status, Prioridade)
+VALUES ('Tarefa 1', 'Descrição da tarefa 1', 1, 'pendente', 'baixa'),
+       ('Tarefa 2', 'Descrição da tarefa 2', 2, 'concluida', 'media'),
+       ('Tarefa 3', 'Descrição da tarefa 3', 3, 'pendente', 'alta'),
+       ('Tarefa 4', 'Descrição da tarefa 4', 4, 'concluida', 'media'),
+       ('Tarefa 5', 'Descrição da tarefa 5', 5, 'atrasada', 'alta'),
+       ('Tarefa 6', 'Descrição da tarefa 6', 6, 'pendente', 'media'),
+       ('Tarefa 7', 'Descrição da tarefa 7', 7, 'concluida', 'baixa'),
+       ('Tarefa 8', 'Descrição da tarefa 8', 8, 'pendente', 'alta'),
+       ('Tarefa 9', 'Descrição da tarefa 9', 9, 'concluida', 'media'),
+       ('Tarefa 10', 'Descrição da tarefa 10', 10, 'atrasada', 'alta'),
+       ('Tarefa 11', 'Descrição da tarefa 11', 11, 'pendente', 'baixa'),
+       ('Tarefa 12', 'Descrição da tarefa 12', 12, 'pendente', 'media'),
+       ('Tarefa 13', 'Descrição da tarefa 13', 13, 'pendente', 'baixa'),
+       ('Tarefa 14', 'Descrição da tarefa 14', 14, 'concluida', 'media'),
+       ('Tarefa 15', 'Descrição da tarefa 15', 15, 'pendente', 'alta'),
+       ('Tarefa 16', 'Descrição da tarefa 16', 16, 'concluida', 'baixa'),
+       ('Tarefa 17', 'Descrição da tarefa 17', 17, 'atrasada', 'alta'),
+       ('Tarefa 18', 'Descrição da tarefa 18', 18, 'pendente', 'media'),
+       ('Tarefa 19', 'Descrição da tarefa 19', 19, 'pendente', 'alta'),
+       ('Tarefa 20', 'Descrição da tarefa 20', 20, 'pendente', 'media');
